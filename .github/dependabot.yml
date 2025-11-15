@@ -1,0 +1,55 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "Tom225533"
+    assignees:
+      - "Tom225533"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+
+    # Group dependencies by type
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
+
+    # Ignore specific packages if needed
+    ignore:
+      # Example: ignore major version updates for critical packages
+      # - dependency-name: "express"
+      #   update-types: ["version-update:semver-major"]
+
+    # Allow specific dependency updates
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+
+    # Increase pull request limit for security updates
+    versioning-strategy: increase
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - "github-actions"
+      - "automated"
